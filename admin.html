@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Developer Robin Admin</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FIREBASE CONFIG — এখানে আপনার Firebase config বসান           ║
+   ║  (Firebase Console → Project settings → Your apps → Web app)  ║
+   ║  নিচের ফাঁকা "" গুলোর ভেতরে মান লিখুন। বাকি কিছু বদলাবেন না।     ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+const firebaseConfig = {
+  apiKey: "AIzaSyCmVKWlXDCq7wyNl5ewa_ERmZ7XWi8P7Ds",
+  authDomain: "live-tv-1d423.firebaseapp.com",
+  databaseURL: "https://live-tv-1d423-default-rtdb.firebaseio.com",
+  projectId: "live-tv-1d423",
+  storageBucket: "live-tv-1d423.firebasestorage.app",
+  messagingSenderId: "188355793967",
+  appId: "1:188355793967:web:3c51a2a035bc309bb5e2da",
+  measurementId: "G-V5M34VVM99"
+};
+/* ADMIN GMAIL (শুধু admin.html এর জন্য): আপনার Gmail এখানে লিখুন, যেমন ["you@gmail.com"] */
+const adminEmails = [];
+</script>
+<style>
+:root{--bg:#dff7f1;--p:rgba(255,255,255,.78);--bd:rgba(13,148,134,.2);--fg:#0a3a3f;--m:#4a6e73;--g:linear-gradient(135deg,#1ccdb5,#0b9486);--ok:#16a34a;--er:#dc2626;--sh:0 12px 34px rgba(16,150,138,.14);--in:rgba(255,255,255,.75)}
+body[data-d]{--bg:#062524;--p:rgba(16,62,60,.66);--bd:rgba(120,230,214,.18);--fg:#e8fffb;--m:#8fb8b3;--sh:0 12px 34px rgba(0,0,0,.4);--in:rgba(255,255,255,.07)}
+*{box-sizing:border-box;margin:0}body{font-family:Poppins,Inter,system-ui,sans-serif;background:linear-gradient(165deg,#e9fcf8,#c9f1e9 50%,#e1faf4) fixed;color:var(--fg);min-height:100vh}
+body[data-d]{background:linear-gradient(165deg,#031a1a,#06302e 50%,#04201f) fixed}
+button,input,select,textarea{font:inherit;color:inherit}:focus-visible{outline:3px solid #2dd4bf;outline-offset:2px}
+.app{display:grid;grid-template-columns:262px 1fr;min-height:100vh}
+aside{overflow:auto;background:var(--p);border-right:1px solid var(--bd);padding:18px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;backdrop-filter:blur(18px);z-index:20}
+.br{display:flex;align-items:center;gap:12px;padding:4px 6px 14px}.br b{display:block;line-height:1.1}.br small{color:var(--m)}.lg{width:44px;height:44px;border-radius:50%;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.2rem;box-shadow:0 8px 18px rgba(13,148,134,.35)}
+.gh{font-size:.68rem;letter-spacing:.1em;color:var(--m);padding:14px 12px 4px;font-weight:700}
+.nv{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;border-radius:14px;color:var(--m);cursor:pointer;border:0;background:none;font-weight:600;text-align:left;text-decoration:none;transition:.2s}.nv:hover{background:var(--bd);color:var(--fg)}.nv.on{background:var(--g);color:#fff;box-shadow:0 8px 20px rgba(13,148,134,.35)}
+.em{font-size:.74rem;padding:6px 14px;word-break:break-all}
+main{padding:28px;max-width:1100px;width:100%;min-width:0}.top,.ov{display:none}.mb{padding:10px 16px}
+.ph{margin-bottom:18px}.ph h2{font-size:1.6rem;margin:0}.ph p{color:var(--m);margin-top:4px}.qa{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+h2{margin-bottom:16px}h3{margin-bottom:8px}.card{background:var(--p);border:1px solid var(--bd);border-radius:22px;padding:22px;backdrop-filter:blur(14px);box-shadow:var(--sh)}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-bottom:22px}.stats b{font-size:1.9rem;display:block}.stats span{color:var(--m);font-size:.85rem}
+.stats.guide{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}.stats.guide b{font-size:1.02rem;margin-bottom:6px}.gc{display:block;color:inherit;text-decoration:none;transition:.25s}.gc:hover{transform:translateY(-4px);border-color:#2dd4bf}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:99px;border:1px solid var(--bd);background:var(--p);cursor:pointer;font-weight:600;text-decoration:none;color:var(--fg);transition:.2s}.btn:hover{transform:translateY(-2px);border-color:#2dd4bf}.btn.p{background:var(--g);color:#fff;border:0;box-shadow:0 8px 20px rgba(13,148,134,.35)}.btn.d{color:var(--er)}.btn:disabled{opacity:.5;cursor:wait}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:14px;border:1px solid var(--bd);background:var(--in)}select option{color:#000}input[type=checkbox]{width:auto}
+label{display:grid;gap:6px;font-size:.86rem;font-weight:600}.ck{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--bd);border-radius:14px;background:var(--in);cursor:pointer}.ck input{width:20px;height:20px;accent-color:#0fa89a}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.fg .w{grid-column:1/-1}.sec{margin-top:8px;padding-top:16px;border-top:1px solid var(--bd)}.sec:first-child{border:0;margin:0;padding:0}.sec h3{margin:0}.sec p{color:var(--m);font-size:.82rem;margin-top:4px;font-weight:400}
+.pv{max-width:150px;max-height:110px;border-radius:14px;object-fit:cover;border:1px solid var(--bd);margin-top:6px}.pv[hidden]{display:none}.sv{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--bd);font-size:.9rem}.tw{overflow-x:auto}
+.bd{padding:3px 11px;border-radius:99px;font-size:.75rem;background:var(--bd)}.bd.ok{background:rgba(34,197,94,.2);color:var(--ok)}
+.bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}.bar input{flex:1;min-width:180px}
+.mod{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:grid;place-items:start center;padding:20px;overflow:auto;backdrop-filter:blur(4px)}.mod .card{width:min(780px,100%);background:var(--bg)}
+#ts{position:fixed;right:14px;bottom:14px;display:grid;gap:8px;z-index:99}.t{padding:12px 18px;border-radius:14px;background:#0b6f66;color:#fff;box-shadow:var(--sh)}.t.e{background:#b91c1c}
+pre{background:rgba(0,0,0,.3);padding:14px;border-radius:12px;overflow:auto;font-size:.8rem;white-space:pre-wrap}.mu{color:var(--m)}.ctr{max-width:440px;margin:12vh auto;padding:0 16px}
+.sk{height:80px;border-radius:18px;background:linear-gradient(90deg,var(--p),var(--bd),var(--p));background-size:200%;animation:s 1.2s infinite}@keyframes s{to{background-position:-200%}}
+@media(max-width:800px){.app{grid-template-columns:1fr}aside{position:fixed;width:270px;transform:translateX(-100%);transition:.3s}aside.o{transform:none}.ov.o{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:19}.top{display:flex;align-items:center;gap:12px;margin-bottom:14px}.tt{font-weight:700}main{padding:16px}
+ thead{display:none}tr{display:block;padding:12px 0;border-bottom:1px solid var(--bd)}td{display:block;border:0;padding:4px 0}td[colspan]{display:block}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.presets{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}input[type=color]{height:48px;padding:4px;cursor:pointer}
+.pw .lb{font-weight:600;margin-bottom:8px}.pr{display:grid;grid-template-columns:1fr 1.2fr auto auto;gap:10px;align-items:center;margin-bottom:10px}.pr .prg{padding:0;accent-color:#0fa89a}.pvl{min-width:46px;text-align:right}.pw>.btn{margin-top:4px}
+@media(max-width:800px){.pr{grid-template-columns:1fr auto auto}.pr .prg{grid-column:1/-1;order:3}}
+</style></head><body>
+<div id="root"></div><div id="ts" aria-live="polite"></div>
+<script type="module">
+const $=(s,r=document)=>r.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const R=$("#root");if(localStorage.thm==="d")document.body.setAttribute("data-d","");
+const toast=(m,e)=>{const t=document.createElement("div");t.className="t"+(e?" e":"");t.textContent=m;$("#ts").append(t);setTimeout(()=>t.remove(),4500)};
+/* ===== OPTION 1: paste your Firebase web config here (same one as index.html) ===== */
+const FIREBASE_CONFIG=firebaseConfig;
+/* ===== Admin Gmail/email allowlist (optional, makes setup easier). Example: ["you@gmail.com"] ===== */
+const ADMIN_EMAILS=adminEmails;
+/* ===== OPTION 2: leave it empty and paste it on the setup screen / Setup & Rules page ===== */
+const cfg=FIREBASE_CONFIG.apiKey&&FIREBASE_CONFIG.projectId?FIREBASE_CONFIG:(()=>{try{return JSON.parse(localStorage.fbcfg||"null")}catch{return null}})();
+const RULES=`rules_version = '2';
+service cloud.firestore {
+ match /databases/{db}/documents {
+  function isAdmin(){ return request.auth != null && (exists(/databases/$(db)/documents/admins/$(request.auth.uid))${ADMIN_EMAILS.length?` || (request.auth.token.email_verified == true && request.auth.token.email in [${ADMIN_EMAILS.map(e=>`'${String(e).toLowerCase().replace(/[^a-z0-9@._+-]/g,"")}'`).join(", ")}])`:""}); }
+  match /admins/{id}        { allow read: if request.auth != null && request.auth.uid == id; allow write: if false; }
+  match /site/{id}          { allow read: if true; allow write: if isAdmin(); }
+  match /projects/{id}      { allow read: if resource.data.published == true || isAdmin(); allow write: if isAdmin(); }
+  match /freeProjects/{id}  { allow read: if resource.data.published == true || isAdmin(); allow write: if isAdmin(); }
+  match /demoVideos/{id}    { allow read: if resource.data.published == true || isAdmin(); allow write: if isAdmin(); }
+  match /messages/{id} {
+    allow create: if request.resource.data.keys().hasOnly(['name','email','subject','type','message','createdAt'])
+                  && request.resource.data.message.size() <= 2000;
+    allow read, update, delete: if isAdmin();
+  }
+  match /users/{uid} {
+    allow create, update: if request.auth != null && request.auth.uid == uid
+      && request.resource.data.keys().hasOnly(['name','email','createdAt','lastLogin','verified','provider']);
+    allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    allow delete: if isAdmin();
+  }
+  match /adminAuditLogs/{id} { allow create, read: if isAdmin(); allow update, delete: if false; }
+ }
+}`;
+/* ---------- setup screen ---------- */
+if(!cfg){R.innerHTML=`<div class="ctr card"><h2>Developer Robin <span style="background:var(--g);-webkit-background-clip:text;color:transparent">Admin</span></h2><p style="color:var(--er);margin-bottom:12px">Firebase config is missing, so login cannot work yet. Open admin.html in a text editor and paste your Firebase config into <code>FIREBASE_CONFIG</code> at the top of the script, then reopen the page.</p><form id="f" style="display:grid;gap:12px"><label>Email<input name="e" type="email" autocomplete="username"></label><label>Password<input name="p" type="password" autocomplete="current-password"></label><button class="btn p">Login</button><button type="button" class="btn" id="gl">Login with Google (Gmail)</button></form></div>`;
+const nf=e=>{e&&e.preventDefault&&e.preventDefault();toast("Add your Firebase config in FIREBASE_CONFIG (top of admin.html) first.",1)};
+$("#f").onsubmit=nf;$("#gl").onclick=nf;throw 0}
+const v="10.12.2",u=x=>`https://www.gstatic.com/firebasejs/${v}/firebase-${x}.js`;
+const [A,Au,Fs]=await Promise.all([import(u("app")),import(u("auth")),import(u("firestore"))]);
+const app=A.initializeApp(cfg,"admin"),auth=Au.getAuth(app),db=Fs.getFirestore(app);
+const {collection,doc,getDoc,getDocs,setDoc,addDoc,updateDoc,deleteDoc,query,where,orderBy,limit,serverTimestamp,getCountFromServer}=Fs;
+let me=null;
+const log=(action,target)=>addDoc(collection(db,"adminAuditLogs"),{uid:me.uid,email:me.email,action,target,at:serverTimestamp()}).catch(()=>{});
+
+/* ---------- auth ---------- */
+const em=c=>({"auth/invalid-credential":"Wrong email or password.","auth/invalid-email":"Invalid email address.","auth/user-not-found":"No such user.","auth/wrong-password":"Wrong password.","auth/too-many-requests":"Too many attempts. Try again later.","auth/network-request-failed":"Network error. Check your internet.","auth/unauthorized-domain":"This domain is not authorized. Add it in Firebase Console → Authentication → Settings → Authorized domains.","auth/operation-not-supported-in-this-environment":"Firebase login does not work from file://. Open this page from http://localhost or your hosting domain.","auth/operation-not-allowed":"Enable Email/Password in Firebase Console → Authentication → Sign-in method.","auth/api-key-not-valid.-please-pass-a-valid-api-key.":"Firebase API key in your config is invalid."}[c]||c);
+function loginView(msg){if(location.protocol==="file:")msg=(msg?msg+" ":"")+"Warning: this page is opened as file:// and Firebase login usually fails there. Run it from http://localhost (VS Code Live Server or 'npx serve') or your hosting domain, and add that domain in Firebase → Authentication → Settings → Authorized domains.";R.innerHTML=`<div class="ctr card"><h2>Developer Robin <span style="background:var(--g);-webkit-background-clip:text;color:transparent">Admin</span></h2>${msg?`<p style="color:var(--er);margin-bottom:10px">${esc(msg)}</p>`:""}<form id="f" style="display:grid;gap:12px"><label>Email<input name="e" type="email" required autocomplete="username"></label><label>Password<input name="p" type="password" required autocomplete="current-password"></label><button class="btn p">Login</button><button type="button" class="btn" id="gl">Login with Google (Gmail)</button><button type="button" class="btn" id="rs">Forgot password</button></form><p class="mu" style="margin-top:12px;font-size:.8rem">There is no public registration. Admins are provisioned in the Firebase console.</p></div>`;
+ $("#gl").onclick=async()=>{try{await Au.signInWithPopup(auth,new Au.GoogleAuthProvider())}catch(x){toast("Google login failed: "+em(x.code||x.message),1)}};
+ $("#f").onsubmit=async e=>{e.preventDefault();const b=$("#f button");b.disabled=1;try{await Au.signInWithEmailAndPassword(auth,e.target.e.value,e.target.p.value)}catch(x){toast("Login failed: "+em(x.code||x.message),1);b.disabled=0}};
+ $("#rs").onclick=async()=>{const m=$("#f").e.value;if(!m)return toast("Enter your email first.",1);try{await Au.sendPasswordResetEmail(auth,m);toast("If the account exists, a reset email was sent.")}catch(x){toast(x.code,1)}}}
+Au.onAuthStateChanged(auth,async usr=>{
+ if(!usr){me=null;return loginView()}
+ try{const a=await getDoc(doc(db,"admins",usr.uid));
+  const listed=usr.emailVerified&&ADMIN_EMAILS.map(x=>String(x).toLowerCase()).includes((usr.email||"").toLowerCase());
+  if(!a.exists()&&!listed){const id=usr.uid;await Au.signOut(auth);return loginView(`Login OK, but this account is not an admin yet. In Firebase Console → Firestore, create collection "admins" with document ID: ${id} (add any field, e.g. role = super). Then login again.`)}
+  me=usr;shell();log("login","session")}
+ catch(x){await Au.signOut(auth);loginView("Could not verify admin access ("+(x.code||x.message)+"). If this says permission-denied, make sure the Firestore rules are published in Firebase Console → Firestore → Rules, then try again.")}});
+
+/* ---------- schemas ---------- */
+const S={
+ projects:{t:"📁 আমার প্রজেক্ট",d:"My Projects পেজ ও হোম পেজের প্রজেক্ট এখান থেকে যোগ, এডিট, পাবলিশ বা ডিলিট করুন।",f:[["slug","লিংক নাম (ইংরেজি ছোট হরফ, যেমন: my-app) — খালি রাখলে নিজে তৈরি হবে","t"],["title","প্রজেক্টের নাম","t",1],["cat","ক্যাটাগরি (যেমন: Web App, Game)","t",1],["desc","ছোট বর্ণনা","a"],["tech","টেকনোলজি (কমা দিয়ে আলাদা)","l"],["platform","প্ল্যাটফর্ম (যেমন: Web)","t"],["status","স্ট্যাটাস (যেমন: Live)","t"],["featured","হোম পেজে দেখাবে (Featured)","b"],["img","প্রজেক্টের ছবি","u"],["demo","Live Demo লিংক","u"],["repo","সোর্স কোড (GitHub) লিংক","u"],["download","ডাউনলোড লিংক (কার্ডের Download বাটনে যাবে)","u"],["video","ভিডিও (YouTube ভিডিও ID অথবা যেকোনো ভিডিও লিংক) — প্রজেক্টের ভিতরের Video বাটনে চলবে","t"],["features","ফিচার (প্রতি লাইনে একটা)","n"],["date","তারিখ","d"],["published","পাবলিশ করুন (সাইটে দেখাবে)","b"]]},
+ freeProjects:{t:"🎁 ফ্রি প্রজেক্ট",d:"ডাউনলোডযোগ্য ফ্রি প্রজেক্ট, টুলস ও গেম।",f:[["slug","লিংক নাম (ইংরেজি ছোট হরফ) — খালি রাখলে নিজে তৈরি হবে","t"],["title","নাম","t",1],["cat","ক্যাটাগরি","t",1],["desc","ছোট বর্ণনা","a"],["platform","প্ল্যাটফর্ম","t"],["version","ভার্সন","t"],["size","ফাইলের সাইজ","t"],["img","থাম্বনেইল ছবি","u"],["download","ডাউনলোড লিংক","u"],["link","প্রজেক্ট লিংক","u"],["repo","সোর্স লিংক","u"],["video","ভিডিও (YouTube ভিডিও ID অথবা যেকোনো ভিডিও লিংক) — Details পেজের Video বাটনে চলবে","t"],["access","কে ডাউনলোড করতে পারবে","s:public,users"],["date","তারিখ","d"],["published","পাবলিশ করুন (সাইটে দেখাবে)","b"]]},
+ demoVideos:{t:"🎬 ডেমো ভিডিও",d:"YouTube ভিডিও যোগ করুন, শুধু ভিডিও ID দিলেই হবে।",f:[["slug","লিংক নাম (ইংরেজি ছোট হরফ) — খালি রাখলে নিজে তৈরি হবে","t"],["title","ভিডিওর নাম","t",1],["cat","ক্যাটাগরি","t"],["desc","ছোট বর্ণনা","a"],["youtube","YouTube ভিডিও ID (যেমন: dQw4w9WgXcQ)","t"],["img","থাম্বনেইল ছবি (ঐচ্ছিক)","u"],["project","সম্পর্কিত প্রজেক্ট","t"],["link","Link বাটনের লিংক (যেকোনো লিংক, https:// দিয়ে শুরু)","u"],["date","তারিখ","d"],["published","পাবলিশ করুন (সাইটে দেখাবে)","b"]]},
+ site:{t:"সাইট সেটিংস",f:[["_a","🏷️ লোগো|ওয়েবসাইটের উপরের ও নিচের লোগো এখান থেকে বদলান। ছবির লিংক বসান, অথবা “ছবি আপলোড” বাটন চাপুন (এর জন্য আগে ImageKit পেজে Private key দিন)। ফাঁকা রাখলে লেখা-লোগো দেখাবে।","h"],["logoTop","উপরের (হেডার) লোগো","u"],["logoName","লোগোর পাশের নাম — হেডার ও ফুটার দুই জায়গায় দেখাবে (যেমন: Developer Robin)","t"],["logoBottom","নিচের (ফুটার) লোগো","u"],
+ ["_b","🏠 হোম পেজ (প্রথম অংশ)|হোম পেজের সবার উপরের লেখাগুলো।","h"],["available","কাজের জন্য Available","b"],["availText","Availability লেখা","t"],["headline","মূল হেডলাইন","t"],["subtitle","সাবটাইটেল","a"],["desc","ছোট বর্ণনা","a"],["stats","স্ট্যাটাস বার (প্রতি লাইনে একটা: 5+|Projects Completed)","soc"],
+ ["_c","👤 আমার সম্পর্কে|About পেজ ও হোম পেজের About অংশ।","h"],["bio","বায়ো","a"],["philosophy","কাজের দর্শন","a"],["avatar","প্রোফাইল ছবি","u"],["interests","আগ্রহ (কমা দিয়ে আলাদা)","l"],
+ ["_d","📞 যোগাযোগ ও সোশ্যাল লিংক|ফুটারে ও হোম পেজে দেখাবে।","h"],["email","ইমেইল","t"],["resume","রিজিউমে লিংক","u"],["socials","সোশ্যাল লিংক (প্রতি লাইনে একটা: Name|https://url)","soc"],
+ ["_e","🛠️ স্কিলস|প্রতি লাইনে একটা: Category: a, b, c","h"],["skills","স্কিলস","sk"]]}
+};
+const fmt=(t,v)=>t==="b"?!!v:t==="l"?(v||[]).join(", "):t==="n"?(v||[]).join("\n"):t==="soc"?(v||[]).map(s=>s.name+"|"+s.url).join("\n"):t==="sk"?(v||[]).map(s=>s.cat+": "+s.items.join(", ")).join("\n"):t==="pct"?(v||[]).map(s=>s.name+"|"+s.pct).join("\n"):v??"";
+const parse=(t,v)=>t==="l"?v.split(",").map(s=>s.trim()).filter(Boolean):t==="n"?v.split("\n").map(s=>s.trim()).filter(Boolean):t==="soc"?v.split("\n").map(l=>l.split("|").map(s=>s.trim())).filter(a=>a[0]&&a[1]).map(a=>({name:a[0],url:a[1]})):t==="sk"?v.split("\n").filter(l=>l.includes(":")).map(l=>{const i=l.indexOf(":");return{cat:l.slice(0,i).trim(),items:l.slice(i+1).split(",").map(s=>s.trim()).filter(Boolean)}}):t==="pct"?v.split("\n").map(l=>l.split("|").map(s=>s.trim())).filter(a=>a[0]&&a[1]!=="").map(a=>({name:a[0],pct:Math.max(0,Math.min(100,parseInt(a[1])||0))})):v.trim();
+const prow=(x={name:"",pct:80})=>`<div class="pr"><input class="pn" placeholder="স্কিলের নাম (যেমন: WordPress)" value="${esc(x.name)}" maxlength="40"><input class="prg" type="range" min="0" max="100" value="${x.pct}" aria-label="শতাংশ"><b class="pvl">${x.pct}%</b><button type="button" class="btn d" data-pd aria-label="মুছুন">✕</button></div>`;
+const IMGK=/^(img|avatar|logoTop|logoBottom)$/,slugify=s=>String(s).toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+function formHtml(sch,d,edit){return `<div class="fg">`+sch.f.map(([k,l,t,req])=>{
+ if(t==="h"){const[hh,hs]=l.split("|");return `<div class="w sec"><h3>${esc(hh)}</h3>${hs?`<p>${esc(hs)}</p>`:""}</div>`}
+ if(t==="pct")return `<div class="w pw"><div class="lb">${l}</div><div class="rows">${(d[k]||[]).map(prow).join("")}</div><button type="button" class="btn" data-pa>➕ নতুন স্কিল যোগ করুন</button><input type="hidden" name="${k}" value=""></div>`;
+ if(t==="pr")return `<div class="w sec"><h3>${esc(l)}</h3><div class="presets">${PRESETS.map(([n,v])=>`<button type="button" class="btn" data-pr="${esc(JSON.stringify(v))}">${n}</button>`).join("")}</div></div>`;
+ const val=fmt(t.startsWith("s:")?"s":t,d[k]),ro=edit&&k==="slug"?"readonly":"";
+ if(t==="b")return `<label class="ck"><input type="checkbox" name="${k}" ${val?"checked":""}><span>${l}</span></label>`;
+ if(t.startsWith("s:"))return `<label>${l}<select name="${k}">${t.slice(2).split(",").map(o=>`<option ${o===val?"selected":""}>${o}</option>`).join("")}</select></label>`;
+ if(["a","n","soc","sk"].includes(t))return `<label class="w">${l}<textarea name="${k}" rows="${t==="a"?3:5}" maxlength="3000">${esc(val)}</textarea></label>`;
+ return `<label class="${IMGK.test(k)?"w":""}">${l}${req?" *":""}<input name="${k}" type="${t==="d"?"date":t==="c"?"color":"text"}" value="${esc(val)}" ${ro} maxlength="500" ${IMGK.test(k)?'placeholder="https://… ছবির লিংক বসান অথবা নিচের বাটনে আপলোড করুন"':""}>${IMGK.test(k)?`<span><button type="button" class="btn" data-up="${k}">📤 ছবি আপলোড (ImageKit)</button></span><img class="pv" alt="" src="${esc(val)}" ${val?"":"hidden"} onerror="this.hidden=true">`:""}</label>`}).join("")+`</div>`}
+function collect(sch,form){const o={};for(const[k,l,t,req]of sch.f){if(t==="h"||t==="pr")continue;const el=form.elements[k];
+ if(t==="b"){o[k]=el.checked;continue}
+ const x=parse(t,el.value??"");if(k==="slug"){o.slug=x;continue}
+ if(req&&!x)throw new Error(l.split(" — ")[0]+" — এই ঘরটি পূরণ করুন");
+ if(t==="u"&&x&&!/^https?:\/\/[^\s]+$/i.test(x))throw new Error(l+" — লিংক http:// বা https:// দিয়ে শুরু হতে হবে");
+ if(t==="c"&&!/^#[0-9a-f]{6}$/i.test(x))throw new Error(l+" — সঠিক রঙ বাছুন");
+ o[k]=x}
+ if(sch.f.some(f=>f[0]==="slug")){const sl=o.slug||slugify(o.title||"")||"item-"+Date.now().toString(36);if(!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(sl))throw new Error("লিংক নাম শুধু ইংরেজি ছোট হরফ, সংখ্যা ও - হতে পারে");o.slug=sl}
+ return o}
+
+/* ---------- layout ---------- */
+const NAV=[["",[["dash","🏠 ড্যাশবোর্ড"]]],["ওয়েবসাইট পেজ",[["logo","🏷️ লোগো ও নাম"],["color","🎨 কালার"],["home","🏠 হোম পেজ"],["about","👤 আমার সম্পর্কে"],["contact","📞 যোগাযোগ ও সোশ্যাল"],["skills","📈 Professional Expertise"]]],["কনটেন্ট",[["projects","📁 আমার প্রজেক্ট"],["freeProjects","🎁 ফ্রি প্রজেক্ট"],["demoVideos","🎬 ডেমো ভিডিও"]]],["ইনবক্স",[["messages","✉️ যোগাযোগ মেসেজ"],["users","👥 ইউজার (Sign Up)"]]],["টুলস",[["imagekit","🖼️ ছবি আপলোড (ImageKit)"]]]];
+const DEF_ST=[{name:"5+",url:"Projects Completed"},{name:"3+",url:"Happy Clients"},{name:"2+",url:"Years Experience"},{name:"100%",url:"Passion"}];
+const SEC=[["sec_exp","CORE EXPERTISE & SKILLS স্লাইডার"],["sec_pro","Professional Expertise (% প্রোগ্রেস বার) অংশ"],["sec_projects","Featured Projects অংশ"],["sec_free","Free Projects অংশ"],["sec_videos","Demo Videos অংশ"],["sec_about","About অংশ"],["sec_cta","“Let's build something together” বক্স"]];
+const PG={
+ color:{t:"🎨 কালার",d:"ওয়েবসাইটের সব রঙ এখান থেকে বদলান, অথবা একটা রেডি থিম চাপুন। Black & White চালু করলে পুরো সাইট সাদা-কালো হয়ে যাবে। সেভ করে ওয়েবসাইট রিলোড দিন।",f:[["bw","⚫⚪ পুরো ওয়েবসাইট Black & White করুন","b"],["_p","🎨 রেডি কালার থিম (চাপলে রঙ বসে যাবে, তারপর নিচে সেভ করুন)","pr"],["_c","🖌️ নিজের পছন্দের রঙ|রঙের বক্সে চাপ দিয়ে রঙ বাছুন।","h"],["colMain","প্রধান রঙ (বাটন ও গ্রেডিয়েন্ট শুরু)","c"],["colSecond","দ্বিতীয় রঙ (গ্রেডিয়েন্ট শেষ, গাঢ়)","c"],["colAccent","হাইলাইট রঙ (লেখা ও আইকন)","c"],["colBg1","ব্যাকগ্রাউন্ড রঙ ১ (লাইট মোড)","c"],["colBg2","ব্যাকগ্রাউন্ড রঙ ২ (লাইট মোড)","c"],["colText","লেখার রঙ (লাইট মোড)","c"],["colMuted","হালকা লেখার রঙ (লাইট মোড)","c"]]},
+ logo:{t:"🏷️ লোগো ও নাম",d:"ওয়েবসাইটের উপরের (হেডার) ও নিচের (ফুটার) লোগো এবং হেডার লোগোর পাশের নাম। লোগো গোল হয়ে দেখাবে।",f:[["logoTop","উপরের (হেডার) লোগো","u"],["logoName","লোগোর পাশের নাম — হেডার ও ফুটার দুই জায়গায় দেখাবে (যেমন: Developer Robin)","t"],["logoBottom","নিচের (ফুটার) লোগো","u"]]},
+ home:{t:"🏠 হোম পেজ",d:"হোম পেজের মেইন ফোটো, লেখা, স্ট্যাটাস বার এবং কোন কোন অংশ দেখাবে তা এখান থেকে ঠিক করুন।",f:[["avatar","মেইন ফোটো (হোম ও About পেজের বড় ছবি)","u"],["available","Online / Available দেখাবে","b"],["availText","ব্যাজের লেখা (যেমন: Hi, I'm Developer Robin)","t"],["headline","মূল হেডলাইন (যেমন: Hi, I'm Robin — I build digital experiences.)","t"],["subtitle","সাবটাইটেল","a"],["desc","ছোট বর্ণনা","a"],["_s","📊 স্ট্যাটাস বার|ছবির নিচের বার। প্রতি লাইনে একটা, যেমন: 5+|Projects Completed (সর্বোচ্চ ৪টা সুন্দর দেখায়)।","h"],["showStats","স্ট্যাটাস বার দেখাবে","b"],["stats","স্ট্যাটাস লাইনগুলো","soc"],["_x","⚡ CORE EXPERTISE & SKILLS (চলমান স্লাইডার)|প্রতি লাইনে একটা: নাম|আইকন (ইংরেজি আইকন-নাম, একাধিক হলে কমা দিয়ে। যেমন: HTML5 & CSS3|html5,css3 — আইকনের নাম simpleicons.org তে পাবেন)। একদম খালি থাকলে ডিফল্ট ৯টা দেখাবে।","h"],["expertise","স্কিল লাইনগুলো","soc"],["_t","👁️ হোম পেজের কোন কোন অংশ দেখাবে|টিক তুলে দিলে ওই অংশ ওয়েবসাইট থেকে লুকিয়ে যাবে।","h"],...SEC.map(([k,l])=>[k,l,"b"])]},
+ about:{t:"👤 আমার সম্পর্কে",d:"About পেজ ও হোম পেজের About অংশের লেখা।",f:[["bio","বায়ো (নিজের পরিচয়)","a"],["philosophy","কাজের দর্শন","a"],["interests","আগ্রহ (কমা দিয়ে আলাদা)","l"]]},
+ contact:{t:"📞 যোগাযোগ ও সোশ্যাল",d:"ইমেইল ও রিজিউমে লিংক ফুটারে দেখাবে। সোশ্যাল লিংক হোম পেজ ও ফুটারে দেখাবে।",f:[["email","ইমেইল","t"],["resume","Social Link (ফুটারে ইমেইলের নিচে দেখাবে)","u"],["socials","সোশ্যাল লিংক — প্রতি লাইনে একটা: নাম|লিংক (যেমন: GitHub|https://github.com/you)","soc"]]},
+ skills:{t:"📈 Professional Expertise",d:"আপনি কোন স্কিলে কত % Pro তা এখানে দিন। হোম পেজ ও About পেজে প্রোগ্রেস বার দেখাবে।",f:[["proSkills","স্কিলের নাম ও % (স্লাইডার টেনে ঠিক করুন)","pct"]]}};
+const DEF_PRO=["HTML5 & CSS3","Bootstrap","JavaScript","WooCommerce","WordPress","Elementor","Elementor Pro","Figma","Figma to Elementor"].map(name=>({name,pct:80}));
+const DEF_EXP=[["HTML5 & CSS3","html5,css3"],["Bootstrap","bootstrap"],["JavaScript","javascript"],["WooCommerce","woocommerce"],["WordPress","wordpress"],["Elementor","elementor"],["Elementor Pro","elementor"],["Figma","figma"],["Figma to Elementor","figma,elementor"]].map(([name,url])=>({name,url}));
+const DEF_COL={colMain:"#1ccdb5",colSecond:"#0b9486",colAccent:"#0fa89a",colBg1:"#e9fcf8",colBg2:"#c9f1e9",colText:"#0a3a3f",colMuted:"#4a6e73"};
+const PRESETS=[["🌿 টিল (ডিফল্ট)",{...DEF_COL,bw:false}],["💙 নীল",{colMain:"#3b82f6",colSecond:"#1d4ed8",colAccent:"#2563eb",colBg1:"#eef5ff",colBg2:"#cfe0ff",colText:"#0b1d3f",colMuted:"#52617f",bw:false}],["💜 বেগুনি",{colMain:"#a78bfa",colSecond:"#6d28d9",colAccent:"#7c3aed",colBg1:"#f5f0ff",colBg2:"#e0d4ff",colText:"#2a1160",colMuted:"#6b5c8f",bw:false}],["🧡 কমলা",{colMain:"#fb923c",colSecond:"#ea580c",colAccent:"#f97316",colBg1:"#fff6ec",colBg2:"#ffe0c2",colText:"#431a05",colMuted:"#8a6246",bw:false}],["🌹 গোলাপি",{colMain:"#fb7185",colSecond:"#be123c",colAccent:"#e11d48",colBg1:"#fff0f3",colBg2:"#ffd6de",colText:"#4c0519",colMuted:"#8a5160",bw:false}],["🌳 সবুজ",{colMain:"#4ade80",colSecond:"#15803d",colAccent:"#16a34a",colBg1:"#effcf3",colBg2:"#c9f2d6",colText:"#052e16",colMuted:"#4b7258",bw:false}],["⚫⚪ সাদা-কালো",{colMain:"#6b7280",colSecond:"#111827",colAccent:"#1f2937",colBg1:"#f5f5f5",colBg2:"#e5e5e5",colText:"#111111",colMuted:"#555555",bw:true}]];
+const DEF={...DEF_COL,available:true,showStats:true,...Object.fromEntries(SEC.map(([k])=>[k,true]))};
+async function pg(v,k){const P=PG[k],s=await getDoc(doc(db,"site","main")),d={...DEF,...(s.exists()?s.data():{})};if(!(d.stats||[]).length)d.stats=DEF_ST;if(!(d.expertise||[]).length)d.expertise=DEF_EXP;if(!(d.proSkills||[]).length)d.proSkills=DEF_PRO;
+ v.innerHTML=`<div class="ph"><h2>${P.t}</h2><p>${P.d}</p></div><form class="card" id="sf">${formHtml(P,d,false)}<div class="sv"><button class="btn p">💾 সেভ করুন</button></div></form>`;
+ document.querySelectorAll(".pw").forEach(syncP);
+ $("#sf").onsubmit=async e=>{e.preventDefault();const b=$(".p",e.target);b.disabled=1;try{await setDoc(doc(db,"site","main"),{...collect(P,e.target),updatedAt:serverTimestamp()},{merge:true});await log("update","site/"+k);toast("সেভ হয়েছে ✓ — ওয়েবসাইট রিলোড দিলে দেখা যাবে")}catch(x){toast(x.code||x.message,1)}b.disabled=0}}
+function shell(){R.innerHTML=`<div class="app"><div class="ov" id="ov"></div><aside id="sd"><div class="br"><span class="lg">R</span><div><b>Developer Robin</b><small>Admin Panel</small></div></div>${NAV.map(([g,it])=>(g?`<div class="gh">${g}</div>`:"")+it.map(([k,n])=>`<button class="nv" data-k="${k}">${n}</button>`).join("")).join("")}<span style="flex:1"></span><div class="gh">অন্যান্য</div><button class="nv" id="tm">🌓 থিম বদলান</button><button class="nv" id="lo">🚪 লগআউট</button><p class="mu em">${esc(me.email)}</p></aside><main><div class="top"><button class="btn mb" id="mb" aria-label="Menu">☰</button><span class="tt">Admin Panel</span></div><div id="v"></div></main></div>`;
+ const cl=()=>{$("#sd").classList.remove("o");$("#ov").classList.remove("o")};
+ R.onclick=e=>{const n=e.target.closest(".nv[data-k]");if(n){location.hash=n.dataset.k;cl()}else if(e.target.id==="ov")cl()};
+ $("#mb").onclick=()=>{$("#sd").classList.toggle("o");$("#ov").classList.toggle("o")};
+ $("#tm").onclick=()=>{document.body.toggleAttribute("data-d");localStorage.thm=document.body.hasAttribute("data-d")?"d":"l"};
+ $("#lo").onclick=async()=>{await log("logout","session");await Au.signOut(auth)};
+ go()}
+addEventListener("hashchange",()=>me&&go());
+async function go(){const raw=location.hash.slice(1)||"dash",k=raw==="site"?"logo":raw;document.querySelectorAll(".nv[data-k]").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
+ const v=$("#v");v.innerHTML=`<div class="sk"></div>`;scrollTo(0,0);
+ try{await(PG[k]?pg:S[k]?(v,k)=>crud(k,v):{dash,messages:msgV,users:usersV,imagekit:ikV}[k]||dash)(v,k)}catch(x){v.innerHTML=`<div class="card"><h2>সমস্যা হয়েছে</h2><p style="color:var(--er)">${esc(x.code||x.message)}</p><p class="mu" style="margin:8px 0 12px">Firebase Console → Firestore → Rules পাবলিশ করা আছে কিনা এবং আপনার অ্যাকাউন্টের জন্য admins/{uid} ডকুমেন্ট আছে কিনা দেখুন।</p><button class="btn" onclick="location.reload()">আবার চেষ্টা করুন</button></div>`}}
+
+/* ---------- views ---------- */
+async function cnt(c,w){try{const q=w?query(collection(db,c),where(...w)):collection(db,c);return (await getCountFromServer(q)).data().count}catch{return null}}
+async function dash(v){
+ const [p,pp,f,fp,vd,vp,m,mu,us]=await Promise.all([cnt("projects"),cnt("projects",["published","==",true]),cnt("freeProjects"),cnt("freeProjects",["published","==",true]),cnt("demoVideos"),cnt("demoVideos",["published","==",true]),cnt("messages"),cnt("messages",["read","==",false]),cnt("users")]);
+ const st=(n,a,b)=>`<div class="card"><b>${a===null?"N/A":a}</b><span>${n}${b!=null?` · ${b} পাবলিশড`:""}</span></div>`;
+ const gd=(h,t,d)=>`<a class="card gc" href="#${h}"><b>${t}</b><span>${d}</span></a>`;
+ v.innerHTML=`<div class="ph"><h2>🏠 ড্যাশবোর্ড</h2><p>এখান থেকে পুরো ওয়েবসাইট কন্ট্রোল করুন। বাঁ দিকের মেনু বা নিচের কার্ডে চাপ দিন।</p></div><div class="qa"><a class="btn p" href="#projects">📁 প্রজেক্ট ম্যানেজ</a><a class="btn" href="#messages">✉️ মেসেজ দেখুন</a></div>
+ <div class="stats">${st("প্রজেক্ট",p,pp)}${st("ফ্রি প্রজেক্ট",f,fp)}${st("ডেমো ভিডিও",vd,vp)}${st("মোট মেসেজ",m)}${st("না-পড়া মেসেজ",mu)}${st("রেজিস্টার্ড ইউজার",us)}</div>
+ <h3 style="margin:6px 0 12px">🌐 ওয়েবসাইট পেজ</h3><div class="stats guide">${gd("logo","🏷️ লোগো ও নাম","উপরের ও নিচের গোল লোগো, হেডার লোগোর পাশের নাম")}${gd("home","🏠 হোম পেজ","মেইন ফোটো, হেডলাইন, স্ট্যাটাস বার, কোন অংশ দেখাবে")}${gd("about","👤 আমার সম্পর্কে","বায়ো, কাজের দর্শন, আগ্রহ")}${gd("contact","📞 যোগাযোগ ও সোশ্যাল","ইমেইল, রিজিউমে লিংক, সোশ্যাল লিংক")}${gd("skills","📈 Professional Expertise","কোন স্কিলে কত % Pro")}</div>
+ <h3 style="margin:6px 0 12px">📚 কনটেন্ট ও টুলস</h3><div class="stats guide">${gd("projects","📁 আমার প্রজেক্ট","প্রজেক্ট যোগ / এডিট / পাবলিশ / ডিলিট")}${gd("freeProjects","🎁 ফ্রি প্রজেক্ট","ডাউনলোডযোগ্য ফ্রি ফাইল ও টুলস")}${gd("demoVideos","🎬 ডেমো ভিডিও","YouTube ভিডিও যোগ করুন")}${gd("messages","✉️ যোগাযোগ মেসেজ","Contact ফর্ম ও Password Reset অনুরোধ")}${gd("users","👥 ইউজার (Sign Up)","কে কে Sign Up করেছে — নাম, ইমেইল, তারিখ")}${gd("imagekit","🖼️ ছবি আপলোড (ImageKit)","ImageKit কী সেট করুন, ছবি আপলোড করুন")}</div><p class="mu">"N/A" মানে তথ্য পড়া যায়নি (পারমিশন বা ইন্টারনেট সমস্যা) — শূন্য নয়।</p>`;usersMini(v)}
+async function crud(k,v=$("#v")){
+ const sch=S[k];let rows=(await getDocs(collection(db,k))).docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.date||"").localeCompare(a.date||""));
+ const draw=()=>{const q=$("#q").value.toLowerCase();$("#tb").innerHTML=rows.filter(r=>!q||(r.title+" "+(r.cat||"")).toLowerCase().includes(q)).map(r=>`<tr><td><b>${esc(r.title)}</b><br><span class="mu">/${esc(r.id)}</span></td><td>${esc(r.cat||"")}</td><td><span class="bd ${r.published?"ok":""}">${r.published?"পাবলিশড":"ড্রাফট"}</span></td><td style="white-space:nowrap"><button class="btn" data-a="e" data-i="${esc(r.id)}">✏️ এডিট</button> <button class="btn" data-a="p" data-i="${esc(r.id)}">${r.published?"👁️ লুকান":"🚀 পাবলিশ"}</button> <button class="btn" data-a="c" data-i="${esc(r.id)}">📄 কপি</button> <button class="btn d" data-a="d" data-i="${esc(r.id)}">🗑️ ডিলিট</button></td></tr>`).join("")||`<tr><td colspan="4" class="mu">এখনো কিছু নেই। উপরের “+ নতুন যোগ করুন” চাপুন।</td></tr>`};
+ v.innerHTML=`<div class="ph"><h2>${sch.t}</h2><p>${sch.d||""}</p></div><div class="bar"><input id="q" type="search" placeholder="খুঁজুন…" aria-label="Search"><button class="btn p" id="new">+ নতুন যোগ করুন</button></div><div class="card tw"><table><thead><tr><th>নাম</th><th>ক্যাটাগরি</th><th>স্ট্যাটাস</th><th>কাজ</th></tr></thead><tbody id="tb"></tbody></table></div>`;
+ draw();$("#q").oninput=draw;
+ const open=(d,edit)=>{const m=document.createElement("div");m.className="mod";m.innerHTML=`<form class="card"><h2>${edit?"এডিট":"নতুন"} — ${sch.t}</h2>${formHtml(sch,d,edit)}<p style="margin-top:16px;display:flex;gap:8px"><button class="btn p">💾 সেভ করুন</button><button type="button" class="btn" id="x">বাতিল</button></p></form>`;document.body.append(m);
+  $("#x",m).onclick=()=>m.remove();
+  $("form",m).onsubmit=async e=>{e.preventDefault();const b=$(".p",m);b.disabled=1;
+   try{const o=collect(sch,e.target),id=o.slug;
+    if(!edit&&(await getDoc(doc(db,k,id))).exists())throw new Error("A document with this slug already exists.");
+    await setDoc(doc(db,k,id),{...o,updatedAt:serverTimestamp()},{merge:true});await log(edit?"update":"create",k+"/"+id);
+    toast("সেভ হয়েছে ✓");m.remove();crud(k)}catch(x){toast(x.message,1);b.disabled=0}}};
+ $("#new").onclick=()=>open({date:new Date().toISOString().slice(0,10),published:false},false);
+ $("#tb").onclick=async e=>{const b=e.target.closest("[data-a]");if(!b)return;const r=rows.find(x=>x.id===b.dataset.i);
+  try{if(b.dataset.a==="e")open(r,true);
+  if(b.dataset.a==="c")open({...r,slug:r.id+"-copy",title:r.title+" (copy)",published:false},false);
+  if(b.dataset.a==="p"){await updateDoc(doc(db,k,r.id),{published:!r.published,updatedAt:serverTimestamp()});await log(r.published?"unpublish":"publish",k+"/"+r.id);toast("Updated ✓");crud(k)}
+  if(b.dataset.a==="d"&&confirm(`Permanently delete "${r.title}"? This cannot be undone.`)){await deleteDoc(doc(db,k,r.id));await log("delete",k+"/"+r.id);toast("Deleted ✓");crud(k)}}catch(x){toast(x.code||x.message,1)}}}
+async function siteV(v){const s=await getDoc(doc(db,"site","main")),d=s.exists()?s.data():{};
+ v.innerHTML=`<h2>⚙️ সাইট সেটিংস</h2><form class="card" id="sf">${formHtml(S.site,d,false)}<p style="margin-top:16px"><button class="btn p">💾 সেটিংস সেভ করুন</button></p></form><p class="mu" style="margin-top:10px">সেভ করার পর পরিবর্তন ওয়েবসাইটে দেখাবে (ওয়েবসাইট একবার রিলোড দিন)।</p>`;
+ document.querySelectorAll(".pw").forEach(syncP);
+ $("#sf").onsubmit=async e=>{e.preventDefault();const b=$(".p",e.target);b.disabled=1;try{await setDoc(doc(db,"site","main"),{...collect(S.site,e.target),updatedAt:serverTimestamp()},{merge:true});await log("update","site/main");toast("সেটিংস সেভ হয়েছে ✓")}catch(x){toast(x.code||x.message,1)}b.disabled=0}}
+const USER_RULE=`  match /users/{uid} {
+    allow create, update: if request.auth != null && request.auth.uid == uid
+      && request.resource.data.keys().hasOnly(['name','email','createdAt','lastLogin','verified','provider']);
+    allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+    allow delete: if isAdmin();
+  }`;
+const ruleHint=x=>`<p style="color:var(--er)">${esc(x.code||x.message)}</p>${String(x.code||"").includes("permission")?`<p class="mu" style="margin:8px 0">ইউজার তালিকা দেখতে Firebase Console → Firestore → Rules এ <b>match /databases/{db}/documents</b> এর ভেতরে নিচের অংশ যোগ করে <b>Publish</b> করুন:</p><pre>${esc(USER_RULE)}</pre><button class="btn" data-copy>📋 কপি করুন</button>`:""}`;
+document.addEventListener("click",e=>{if(e.target.closest("[data-copy]"))navigator.clipboard.writeText(USER_RULE).then(()=>toast("কপি হয়েছে ✓"),()=>toast("কপি হয়নি",1))});
+const fdt=t=>{try{const d=t?(t.toDate?t.toDate():new Date(t)):null;return d&&!isNaN(d)?esc(d.toLocaleString()):"—"}catch{return "—"}};
+async function usersMini(v){const box=document.createElement("div");box.className="card";box.style.marginTop="20px";v.append(box);
+ try{const s=await getDocs(query(collection(db,"users"),orderBy("createdAt","desc"),limit(5)));const r=s.docs.map(d=>d.data());
+  box.innerHTML=`<div class="bar" style="justify-content:space-between;align-items:center"><h3 style="margin:0">👥 সর্বশেষ Sign Up করা ইউজার</h3><a class="btn" href="#users">সব দেখুন →</a></div>${r.length?`<div class="tw"><table><thead><tr><th>নাম</th><th>ইমেইল</th><th>তারিখ</th></tr></thead><tbody>${r.map(x=>`<tr><td><b>${esc(x.name||"—")}</b></td><td>${esc(x.email)}</td><td>${fdt(x.createdAt)}</td></tr>`).join("")}</tbody></table></div>`:`<p class="mu">এখনো কেউ Sign Up করেনি (বা তথ্য সেভ হয়নি)।</p>`}`}
+ catch(x){box.innerHTML=`<h3 style="margin-bottom:8px">👥 ইউজার তালিকা</h3>${ruleHint(x)}`}}
+async function usersV(v){let rows=[];
+ try{const s=await getDocs(query(collection(db,"users"),orderBy("createdAt","desc"),limit(500)));rows=s.docs.map(d=>({id:d.id,...d.data()}))}
+ catch(x){v.innerHTML=`<div class="ph"><h2>👥 ইউজার (Sign Up)</h2></div><div class="card">${ruleHint(x)}</div>`;return}
+ v.innerHTML=`<div class="ph"><h2>👥 ইউজার (Sign Up)</h2><p>যারা ওয়েবসাইটে Sign Up বা Login করেছে তাদের তালিকা।</p></div><div class="stats"><div class="card"><b>${rows.length}</b><span>মোট ইউজার</span></div><div class="card"><b>${rows.filter(r=>r.verified).length}</b><span>ইমেইল ভেরিফাইড</span></div><div class="card"><b>${rows.filter(r=>Date.now()-new Date(r.createdAt)<7*864e5).length}</b><span>গত ৭ দিনে নতুন</span></div></div>
+ <div class="card" style="margin-bottom:14px"><p class="mu">🔒 পাসওয়ার্ড Firebase-এ এনক্রিপ্ট (hash) হয়ে থাকে — কেউ, এমনকি আপনিও, কারো পাসওয়ার্ড দেখতে পারে না। এটাই নিরাপদ। কেউ ভুলে গেলে Forgot Password থেকে Reset link নেবে এবং আপনার “যোগাযোগ মেসেজ”-এ 🔑 অনুরোধ আসবে।</p></div>
+ <div class="bar"><input id="q" type="search" placeholder="নাম বা ইমেইল খুঁজুন…"><button class="btn" id="csv">⬇️ CSV ডাউনলোড</button></div><div class="card tw"><table><thead><tr><th>নাম</th><th>ইমেইল</th><th>Sign Up</th><th>শেষ Login</th><th>ভেরিফাইড</th><th>কাজ</th></tr></thead><tbody id="ub"></tbody></table></div>`;
+ const draw=q=>{$("#ub").innerHTML=rows.filter(r=>((r.name||"")+" "+(r.email||"")).toLowerCase().includes(q)).map(r=>`<tr><td><b>${esc(r.name||"—")}</b></td><td>${esc(r.email)}</td><td>${fdt(r.createdAt)}</td><td>${fdt(r.lastLogin)}</td><td>${r.verified?"✅":"—"}</td><td><button class="btn d" data-i="${esc(r.id)}">🗑️</button></td></tr>`).join("")||`<tr><td colspan="6" class="mu">কোনো ইউজার নেই।</td></tr>`};draw("");
+ $("#q").oninput=e=>draw(e.target.value.toLowerCase());
+ $("#csv").onclick=()=>{const c=x=>`"${String(x??"").replace(/^([=+\-@])/,"'$1").replace(/"/g,'""')}"`,iso=t=>{try{const d=t.toDate?t.toDate():new Date(t);return d.toISOString()}catch{return ""}};const csv=["Name,Email,SignUp,LastLogin,Verified",...rows.map(r=>[r.name,r.email,iso(r.createdAt),iso(r.lastLogin),r.verified?"yes":"no"].map(c).join(","))].join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download="users.csv";a.click()};
+ $("#ub").onclick=async e=>{const b=e.target.closest("[data-i]");if(!b||!confirm("এই ইউজারের রেকর্ড তালিকা থেকে মুছবেন? (Firebase Authentication থেকে অ্যাকাউন্ট মুছবে না)"))return;try{await deleteDoc(doc(db,"users",b.dataset.i));await log("delete","users/"+b.dataset.i);rows=rows.filter(r=>r.id!==b.dataset.i);draw($("#q").value.toLowerCase());toast("মোছা হয়েছে ✓")}catch(x){toast(x.code||x.message,1)}}}
+async function msgV(v){const snap=await getDocs(query(collection(db,"messages"),orderBy("createdAt","desc"),limit(100)));const rows=snap.docs.map(d=>({id:d.id,...d.data()}));
+ v.innerHTML=`<div class="ph"><h2>✉️ যোগাযোগ মেসেজ</h2><p>Contact ফর্মে আসা মেসেজ। ● চিহ্ন মানে না-পড়া।</p></div><div class="card tw"><table><thead><tr><th>প্রেরক</th><th>বিষয়</th><th>তারিখ</th><th>কাজ</th></tr></thead><tbody id="mt">${rows.map(r=>`<tr><td>${r.read?"":"● "}<b>${esc(r.name)}</b><br><span class="mu">${esc(r.email)}</span></td><td>${esc(r.subject)}</td><td>${r.createdAt?.toDate?esc(r.createdAt.toDate().toLocaleString()):""}</td><td style="white-space:nowrap"><button class="btn" data-a="v" data-i="${r.id}">📖 খুলুন</button> <button class="btn d" data-a="d" data-i="${r.id}">🗑️ ডিলিট</button></td></tr>`).join("")||`<tr><td colspan="4" class="mu">কোনো মেসেজ নেই।</td></tr>`}</tbody></table></div>`;
+ $("#mt").onclick=async e=>{const b=e.target.closest("[data-a]");if(!b)return;const r=rows.find(x=>x.id===b.dataset.i);
+  try{if(b.dataset.a==="v"){const m=document.createElement("div");m.className="mod";m.innerHTML=`<div class="card"><h2>${esc(r.subject)}</h2><p class="mu">${esc(r.name)} &lt;${esc(r.email)}&gt; ${r.type?"· "+esc(r.type):""}</p><p style="white-space:pre-wrap;margin:16px 0">${esc(r.message)}</p><a class="btn p" href="mailto:${encodeURIComponent(r.email)}">ইমেইলে উত্তর দিন</a> <button class="btn" id="x">বন্ধ করুন</button></div>`;document.body.append(m);$("#x",m).onclick=()=>m.remove();
+   if(!r.read){await updateDoc(doc(db,"messages",r.id),{read:true});r.read=true}}
+  if(b.dataset.a==="d"&&confirm("Delete this message permanently?")){await deleteDoc(doc(db,"messages",r.id));await log("delete","messages/"+r.id);toast("Deleted ✓");msgV(v)}}catch(x){toast(x.code||x.message,1)}}}
+async function auditV(v){const s=await getDocs(query(collection(db,"adminAuditLogs"),orderBy("at","desc"),limit(100)));
+ v.innerHTML=`<h2>📜 অডিট লগ</h2><div class="card tw"><table><thead><tr><th>Time</th><th>Admin</th><th>Action</th><th>Target</th></tr></thead><tbody>${s.docs.map(d=>{const r=d.data();return `<tr><td>${r.at?.toDate?esc(r.at.toDate().toLocaleString()):""}</td><td>${esc(r.email)}</td><td>${esc(r.action)}</td><td>${esc(r.target)}</td></tr>`}).join("")||`<tr><td colspan="4" class="mu">No events yet.</td></tr>`}</tbody></table></div><p class="mu" style="margin-top:8px">Logs are written by this browser session; rules forbid editing or deleting them.</p>`}
+function setupV(v){v.innerHTML=`<h2>🔧 সেটআপ ও রুলস</h2><div class="card"><h3>1. Provision the first admin (secure, manual)</h3><p class="mu" style="margin:8px 0">Firebase console → Authentication → add user (email + strong password). Copy its UID. Then Firestore → create collection <code>admins</code> → document ID = that UID (any field, e.g. role: "super"). There is no public admin sign-up and no default password.</p><h3 style="margin-top:16px">2. Publish these Firestore rules</h3><pre id="r">${esc(RULES)}</pre><button class="btn" id="cp" style="margin-top:8px">Copy rules</button><h3 style="margin-top:16px">3. Connection</h3><p class="mu">Project: <b>${esc(cfg.projectId)}</b> · Signed in as ${esc(me.email)} · Admin check passed.</p>${FIREBASE_CONFIG.apiKey?`<p class="mu" style="margin-top:8px">Config is set in the FIREBASE_CONFIG constant inside admin.html. Edit the file to change it.</p>`:`<label style="margin-top:12px">Firebase config (JSON)<textarea id="fc" rows="6">${esc(JSON.stringify(cfg,null,2))}</textarea></label><p style="margin-top:8px;display:flex;gap:8px"><button class="btn p" id="fs">Save config & reload</button><button class="btn d" id="rc">Remove config</button></p>`}</div>`;
+ if($("#fs"))$("#fs").onclick=()=>{try{const j=JSON.parse($("#fc").value);if(!j.apiKey||!j.projectId)throw 0;localStorage.fbcfg=JSON.stringify(j);location.reload()}catch{toast("Invalid JSON (need apiKey and projectId).",1)}};
+ $("#cp").onclick=()=>navigator.clipboard.writeText(RULES).then(()=>toast("Copied"),()=>toast("Copy failed",1));
+ if($("#rc"))$("#rc").onclick=()=>{if(confirm("Remove saved Firebase config from this browser?")){localStorage.removeItem("fbcfg");location.reload()}}}
+
+/* ---------- ImageKit ---------- */
+const ikGet=()=>({pub:localStorage.ikpub||"",ep:localStorage.ikep||"",folder:localStorage.ikfolder||"/robin",priv:sessionStorage.ikpriv||localStorage.ikpriv||"",remembered:!!localStorage.ikpriv});
+async function ikUpload(file){
+ const k=ikGet();
+ if(!k.priv)throw new Error("Add your ImageKit private key on the ImageKit page first.");
+ if(!/^image\/(png|jpe?g|webp|gif|avif)$/.test(file.type))throw new Error("Only PNG, JPG, WebP, GIF or AVIF images are allowed.");
+ if(file.size>5*1024*1024)throw new Error("Image is larger than 5 MB.");
+ const fd=new FormData();fd.append("file",file);fd.append("fileName",file.name.replace(/[^\w.-]/g,"_"));fd.append("folder",k.folder);fd.append("useUniqueFileName","true");
+ let r;try{r=await fetch("https://upload.imagekit.io/api/v1/files/upload",{method:"POST",headers:{Authorization:"Basic "+btoa(k.priv+":")},body:fd})}
+ catch{throw new Error("Request failed: network error or blocked by the browser (CORS). Check your internet and key.")}
+ const j=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error(j.message||"ImageKit upload failed ("+r.status+")");
+ return j.url}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("[data-up]");if(!b)return;
+ const inp=b.closest("form").elements[b.dataset.up],f=document.createElement("input");f.type="file";f.accept="image/*";
+ f.onchange=async()=>{if(!f.files[0])return;b.disabled=1;b.textContent="আপলোড হচ্ছে…";
+  try{inp.value=await ikUpload(f.files[0]);inp.dispatchEvent(new Event("input",{bubbles:true}));await log("upload","imagekit");toast("Uploaded ✓ URL filled in")}catch(x){toast(x.message,1)}
+  b.disabled=0;b.textContent="📤 ছবি আপলোড (ImageKit)"};f.click()});
+document.addEventListener("input",e=>{const t=e.target;if(t.name&&IMGK.test(t.name)){const p=t.closest("label")?.querySelector(".pv");if(p){p.hidden=!t.value;p.src=t.value}}});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pr]");if(!b)return;const f=b.closest("form"),p=JSON.parse(b.dataset.pr);for(const k in p){const el=f.elements[k];if(!el)continue;if(el.type==="checkbox")el.checked=!!p[k];else el.value=p[k]}toast("রঙ বসানো হয়েছে — নিচে সেভ করুন")});
+const syncP=w=>{w.querySelector("input[type=hidden]").value=[...w.querySelectorAll(".pr")].map(r=>r.querySelector(".pn").value.trim().replace(/\|/g,"/")+"|"+r.querySelector(".prg").value).filter(l=>!l.startsWith("|")).join("\n")};
+document.addEventListener("input",e=>{const w=e.target.closest?.(".pw");if(!w)return;if(e.target.classList.contains("prg"))e.target.parentNode.querySelector(".pvl").textContent=e.target.value+"%";syncP(w)});
+document.addEventListener("click",e=>{const ad=e.target.closest("[data-pa]"),de=e.target.closest("[data-pd]");if(ad){const w=ad.closest(".pw"),rs=w.querySelector(".rows");rs.insertAdjacentHTML("beforeend",prow());rs.lastElementChild.querySelector(".pn").focus();syncP(w)}if(de){const w=de.closest(".pw");de.closest(".pr").remove();syncP(w)}});
+function ikV(v){const k=ikGet();
+ v.innerHTML=`<div class="ph"><h2>🖼️ ছবি আপলোড (ImageKit)</h2><p>একবার কী সেট করলে প্রতিটি “ছবি আপলোড” বাটন কাজ করবে।</p></div><div class="card" style="margin-bottom:16px"><b>কীভাবে ব্যবহার করবেন</b><ol style="margin:8px 0 0 20px;line-height:1.8"><li>ImageKit.io তে লগইন করে Developer options থেকে Public key, Private key ও URL endpoint কপি করুন।</li><li>নিচের ফর্মে বসিয়ে <b>Save</b> চাপুন।</li><li>লোগো, মেইন ফোটো বা প্রজেক্টের ছবির ঘরে <b>📤 ছবি আপলোড</b> চাপলেই ছবি আপলোড হয়ে লিংক নিজে বসে যাবে।</li></ol></div>
+ <div class="card" style="margin-bottom:16px"><p style="color:#f59e0b"><b>Security notice:</b> the private key gives full control of your ImageKit account. Here it is kept only in <i>this browser</i> (this session by default) and is never written to Firestore, the public site, or this file. Anyone with access to this browser profile can read it, so use a trusted personal device only. For production-grade security, signing uploads on a server is the recommended approach.</p></div>
+ <form class="card" id="ik"><div class="fg">
+ <label>Public key<input name="pub" value="${esc(k.pub)}" placeholder="public_xxxxxxxx" maxlength="200"></label>
+ <label>URL endpoint<input name="ep" value="${esc(k.ep)}" placeholder="https://ik.imagekit.io/your_id" maxlength="200"></label>
+ <label>Private key ${k.priv?"(saved — enter a new one to replace)":""}<input name="priv" type="password" autocomplete="off" placeholder="${k.priv?"••••••••••••":"private_xxxxxxxx"}" maxlength="200"></label>
+ <label>Upload folder<input name="folder" value="${esc(k.folder)}" maxlength="100"></label>
+ <label class="w" style="grid-template-columns:auto 1fr;align-items:center"><input type="checkbox" name="rem" style="width:auto" ${k.remembered?"checked":""}>Remember private key on this device (otherwise it is forgotten when you close the tab)</label>
+ </div><p style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn p">Save</button><button type="button" class="btn" id="tk">Test connection</button><button type="button" class="btn d" id="rk">Remove private key</button></p><p class="mu" id="tr" style="margin-top:10px">Not verified yet.</p></form>
+ <div class="card" style="margin-top:16px"><h3>Upload image</h3><p class="mu" style="margin:6px 0 10px">PNG, JPG, WebP, GIF or AVIF, up to 5 MB.</p><input type="file" id="uf" accept="image/*"><p id="ur" style="margin-top:10px;word-break:break-all"></p></div>`;
+ $("#ik").onsubmit=e=>{e.preventDefault();const f=e.target.elements,pub=f.pub.value.trim(),ep=f.ep.value.trim().replace(/\/$/,""),folder=f.folder.value.trim(),pk=f.priv.value.trim();
+  try{if(ep&&!/^https:\/\/ik\.imagekit\.io\/[\w-]+$/.test(ep)&&!/^https:\/\/[\w.-]+$/.test(ep))throw new Error("URL endpoint must be an https URL like https://ik.imagekit.io/your_id");
+   if(!/^\/[\w\/-]*$/.test(folder))throw new Error("Folder must start with / and contain only letters, numbers, - _ /");
+   if(pk&&!/^private_[\w+\/=-]+$/.test(pk))throw new Error("Private key looks wrong (should start with private_).");
+   localStorage.ikpub=pub;localStorage.ikep=ep;localStorage.ikfolder=folder;
+   if(pk){if(f.rem.checked){localStorage.ikpriv=pk;sessionStorage.removeItem("ikpriv")}else{sessionStorage.ikpriv=pk;localStorage.removeItem("ikpriv")}}
+   else if(!f.rem.checked){const c=localStorage.ikpriv;if(c){sessionStorage.ikpriv=c;localStorage.removeItem("ikpriv")}}
+   log("update","imagekit-settings");toast("Saved in this browser ✓ (not verified until you test)");ikV(v)}catch(x){toast(x.message,1)}};
+ $("#rk").onclick=()=>{localStorage.removeItem("ikpriv");sessionStorage.removeItem("ikpriv");toast("Private key removed");ikV(v)};
+ $("#tk").onclick=async()=>{const p=ikGet().priv,t=$("#tr");if(!p){t.textContent="Enter and save a private key first.";return}
+  t.textContent="Testing…";
+  try{const r=await fetch("https://api.imagekit.io/v1/files?limit=1",{headers:{Authorization:"Basic "+btoa(p+":")}});
+   t.textContent=r.ok?"✓ ImageKit accepted the key (checked "+new Date().toLocaleTimeString()+").":r.status===401?"✗ ImageKit rejected the key (401). Check the private key.":"✗ ImageKit returned status "+r.status+".";
+  }catch{t.textContent="Could not verify: the request failed (network, or blocked by the browser's CORS policy). This does not prove the key is wrong — try an upload below."}};
+ $("#uf").onchange=async e=>{const f=e.target.files[0],o=$("#ur");if(!f)return;o.textContent="Uploading…";
+  try{const url=await ikUpload(f);await log("upload","imagekit");o.innerHTML=`✓ Uploaded: <a href="${esc(url)}" target="_blank" rel="noopener" style="color:#06b6d4">${esc(url)}</a> <button class="btn" id="cu">Copy URL</button>`;$("#cu").onclick=()=>navigator.clipboard.writeText(url).then(()=>toast("Copied"),()=>toast("Copy failed",1))}
+  catch(x){o.textContent="✗ "+x.message}}}
+</script></body></html>
